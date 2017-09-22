@@ -1,3 +1,3 @@
 import BraveEngine from './BraveEngine.js'
 
-new BraveEngine();
+window.BraveEngine = BraveEngine || {}
