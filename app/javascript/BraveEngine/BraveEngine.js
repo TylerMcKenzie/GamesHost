@@ -23,12 +23,13 @@ import Text    from "./objects/Text.js"
 import Graphic from "./objects/Graphic.js"
 import Sprite  from "./objects/Sprite.js"
 
-export default class BraveEngine {
-  static Game    = Game;
-  static State   = State;
-  static Stage   = Stage;
-  static Camera  = Camera;
-  static Text    = Text;
-  static Graphic = Graphic;
-  static Sprite  = Sprite;
+const BraveEngine = {
+  Game,
+  State,
+  Stage,
+  Sprite,
+  Text,
+  Graphic
 }
+
+export default BraveEngine
