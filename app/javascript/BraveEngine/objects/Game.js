@@ -4,22 +4,24 @@
 * @class Game
 *
 * @constructor
-* @param width { number|string } [default=800] - The number of pixels wide your canvas element will be. If string then the canvas will be the percent value given inside the parentElement.
-* @param height { number|string } [default=400] - The number of pixels high your canvas element will be. If string then the canvas will be the percent value given inside the parentElement.
+* @param width { number|string } - The number of pixels wide your canvas element will be. If string then the canvas will be the percent value given inside the parentElement.
+* @param height { number|string } - The number of pixels high your canvas element will be. If string then the canvas will be the percent value given inside the parentElement.
 * @param parentElement { string|HTMLElement } [default=''] - The id of the parentElement or the parentElement node.
 * @param renderingContext { string } [default='2d'] - The context in which to set the renderer in.
 * @param gameName { string } [default=''] - Name of your game.
 *
 */
-export default class Game {
-  constructor(width = 800, height = 400, parentElement, renderingContext = '2d', gameName = '') {
+import StateManager from "./StateManager"
+
+class Game {
+  constructor(width, height, parentElement, renderingContext, gameName = "", startState) {
     let canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
     this.canvas = canvas
     this.context = this.canvas.getContext(renderingContext)
 
-    if(!parentElement || !parentElement.nodeType) {
+    if(!parentElement.nodeType && typeof parentElement !== "string") {
       throw new Error("A valid id or parentNode is required")
     } else {
       if(parentElement.nodeType) {
@@ -36,7 +38,88 @@ export default class Game {
     }
 
     this.name = gameName
-    this.context.fillStyle = "black"
-    this.context.fillRect(0,0,this.canvas.width, this.canvas.height)
+
+
+    this.state = new StateManager(this)
+
+    /*
+    * Private Variables for class @Game
+    */
+    this._isPaused = false
+
+
+    this._loop = null
+
+    if(startState) {
+      this.state.add('Default', startState, true)
+    }
+  }
+
+  start() {
+    if(!this.state.current) {
+      throw new Error("Default State has not been set.")
+    }
+
+
+    let rAF,
+        now,
+        last = window.performance.now(),
+        dt = 0,
+        step = 1/60,
+        delta = 1E3/60,
+        accumulator = delta
+
+
+
+
+    let frame = () => {
+      now = window.performance.now()
+      dt = now - last
+      last = now
+
+      if(dt > 1E3) {
+        return
+      }
+
+      accumulator += dt
+
+      while(accumulator >= delta) {
+        this.state.current.update(step)
+
+        accumulator -= delta
+      }
+
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
+      this.state.current.render()
+
+      if(!this.isPaused) {
+        rAF = window.requestAnimationFrame(frame)
+      } else {
+        window.cancelAnimationFrame(rAF)
+      }
+    }
+
+    window.requestAnimationFrame(frame)
+  }
+
+  get isPaused() {
+    return this._isPaused
+  }
+
+  pause() {
+    this._isPaused = true
+  }
+
+  resume() {
+    this._isPaused = false
+
+    this.start()
+  }
+
+  add() {
+
   }
 }
+
+export default Game
