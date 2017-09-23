@@ -18,7 +18,6 @@ import Stage from "./objects/Stage.js"
 /*
 * Game Centered Objects
 */
-import Camera  from "./objects/Camera.js"
 import Text    from "./objects/Text.js"
 import Graphic from "./objects/Graphic.js"
 import Sprite  from "./objects/Sprite.js"

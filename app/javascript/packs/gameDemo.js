@@ -2,7 +2,6 @@ import 'BraveEngine'
 
 let startStateProps = {
   init: function() {
-    console.log(this)
     this.x = this.game.canvas.width/2
     this.y = this.game.canvas.height/2
   },

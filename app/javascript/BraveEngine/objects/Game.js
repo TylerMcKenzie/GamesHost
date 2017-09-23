@@ -12,6 +12,7 @@
 *
 */
 import StateManager from "./StateManager"
+import Camera from "./Camera"
 
 class Game {
   constructor(width, height, parentElement, renderingContext, gameName = "", startState) {
@@ -115,10 +116,6 @@ class Game {
     this._isPaused = false
 
     this.start()
-  }
-
-  add() {
-
   }
 }
 

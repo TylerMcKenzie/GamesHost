@@ -28,9 +28,9 @@ export default class StateManager {
           throw new Error(`State requires an update function`)
         }
 
-        if(!object.render) {
-          throw new Error(`State requires a render function`)
-        }
+        // if(!object.render) {
+        //   throw new Error(`State requires a render function`)
+        // }
 
         object.game = this._gameBinding
 
@@ -64,5 +64,13 @@ export default class StateManager {
     } else {
       throw new Error(`State '${key}' not found.`)
     }
+  }
+
+  update(step) {
+    this.current.update(step)
+  }
+
+  render() {
+    this.current.render()
   }
 }
