@@ -1,7 +1,6 @@
 class Stage {
   constructor() {
     this._children = []
-
   }
 
   sortChildren() {

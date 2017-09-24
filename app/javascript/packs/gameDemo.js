@@ -2,17 +2,17 @@ import 'BraveEngine'
 
 let startStateProps = {
   init: function() {
-    this.x = this.game.canvas.width/2
-    this.y = this.game.canvas.height/2
+    this.spriteTest = new BraveEngine.Sprite({width:50, height: 50, x: this.game.canvas.width/2, y: this.game.canvas.height/2, context: this.game.context})
 
     this.width = 50
     this.height = 50
 
-    this.vX = 5500
-    this.vY = 5500
+    this.vX = 100
+    this.vY = 100
+    console.log(this.spriteTest)
   },
   update: function(dt) {
-    if(this.x-this.width > this.game.canvas.width) {
+    if(this.x+this.width > this.game.canvas.width) {
       this.vX *= -1
     }
 
@@ -20,7 +20,7 @@ let startStateProps = {
       this.vX *= -1
     }
 
-    if(this.y-this.height > this.game.canvas.height) {
+    if(this.y+this.height > this.game.canvas.height) {
       this.vY *= -1
     }
 
@@ -43,8 +43,16 @@ let startStateProps = {
 
 let startState = new BraveEngine.State(startStateProps)
 
-window.gameDemo = new BraveEngine.Game(800, 400, "braveengine-demo", "2d", "Demo", startState)
+
+
+window.gameDemo = new BraveEngine.Game(600, 400, "braveengine-demo", "2d", "Demo", startState)
+
+
 
 console.log(gameDemo)
 
 gameDemo.start()
+
+window.addEventListener("focus", function(e) {
+  gameDemo.resume()
+})
