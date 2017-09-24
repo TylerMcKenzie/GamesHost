@@ -7,7 +7,6 @@
 */
 import Game  from "./objects/Game.js"
 import State from "./objects/State.js"
-import Stage from "./objects/Stage.js"
 
 /*
 * World Elements
@@ -25,7 +24,6 @@ import Sprite  from "./objects/Sprite.js"
 const BraveEngine = {
   Game,
   State,
-  Stage,
   Sprite,
   Text,
   Graphic

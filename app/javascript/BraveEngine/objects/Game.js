@@ -49,8 +49,6 @@ class Game {
     this._isPaused = false
 
 
-    this._loop = null
-
     if(startState) {
       this.state.add('Default', startState, true)
     }
@@ -61,7 +59,6 @@ class Game {
       throw new Error("Default State has not been set.")
     }
 
-
     let rAF,
         now,
         last = window.performance.now(),
@@ -69,9 +66,6 @@ class Game {
         step = 1/60,
         delta = 1E3/60,
         accumulator = delta
-
-
-
 
     let frame = () => {
       now = window.performance.now()

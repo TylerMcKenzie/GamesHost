@@ -1,37 +1,47 @@
 import Stage from "./Stage"
+import Text from "./Text"
+import Sprite from "./Sprite"
+import Graphic from "./Graphic"
 
 class State {
   static isState(object) {
     return (object instanceof this) ? true : false
   }
 
-  constructor({init, update, render, game, ...customFuncs}) {
-    this.init = init
-    this._update = update
+  constructor({init, update, game, ...customProps}) {
+    this._init = init
+    this._updateCallback = update
 
     this.game = game
 
-    this.stage = new Stage(this.game)
+    this.stage = new Stage()
 
-    for(let func in customFuncs) {
-      this[func] = customFuncs[func]
+    for(let prop in customProps) {
+      this[prop] = customProps[prop]
     }
 
     if(this.game) {
-      this.init()
+      this._init()
     }
   }
 
   bindGameContext(game) {
     this.game = game
 
-    this.init()
+    this._init()
+  }
+
+  add(object) {
+
+
+
+    this.stage.add(object)
   }
 
   update(dt) {
     this.stage.update(dt)
 
-    this._update(dt)
+    this._updateCallback(dt)
   }
 
   render() {
