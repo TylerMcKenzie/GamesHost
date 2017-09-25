@@ -31,13 +31,32 @@ class State {
     this._init()
   }
 
-  add(object) {
+  add(type, object) {
+    let builder, asset
 
+    if(!object.context) {
+      object.context = this.game.context
+    }
 
+    switch(type) {
+      case "sprite":
+        builder = Sprite
+        break
+      case "graphic":
+        builder = Graphic
+        break
+      case "text":
+        builder = Text
+        break
+      default:
+        throw new Error("Game asset not supported.")
+    }
 
-    this.stage.add(object)
+    asset = new builder(object)
 
-    return object
+    this.stage.add(asset)
+
+    return asset
   }
 
   update(dt) {

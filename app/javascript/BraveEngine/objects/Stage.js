@@ -1,32 +1,54 @@
 class Stage {
   constructor() {
     this._children = []
+    this._sorted
   }
 
-  sortChildren() {
+  _sortChildren() {
     this._children = this._children.sort(function(child1, child2) {
-      return child1.zIndex - child2.zIndex
+      return child1.z - child2.z
     })
+
+    this._sorted = true
   }
 
-  bringToFront(sprite) {
-    let child = this._children[this.getChildIndex(sprite)]
+  bringToFront(child) {
+    let childToMove = this._children[this.getChildIndex(child)]
+    childToMove.z = this._children.length+1
+
+    this._sorted = false
   }
 
-  sendToBack(sprite) {
-    let child = this._children[this.getChildIndex(sprite)]
+  sendToBack(child) {
+    let childToMove = this._children[this.getChildIndex(child)]
+    childToMove.z = 0
+
+    this._sorted = false
   }
 
-  getChildIndex(sprite) {
-    return this._children.indexOf(sprite)
+  setZIndex(child, newZIndex) {
+    let childToMove = this._children[this.getChildIndex(child)]
+    childToMove.z = newZIndex
+
+    this._sorted = false
   }
 
-  add(sprite) {
-    this._children.push(sprite)
+  getChildIndex(child) {
+    return this._children.indexOf(child)
   }
 
-  remove(sprite) {
-    let index = this.getChildIndex(sprite)
+  add(child) {
+    if(!child.z) {
+      child.z = this._children.length+1
+    } else {
+      this._sorted = false
+    }
+
+    this._children.push(child)
+  }
+
+  remove(child) {
+    let index = this.getChildIndex(child)
 
     this._children.splice(index, 1)
   }
@@ -38,6 +60,10 @@ class Stage {
   }
 
   render() {
+    if(!this._sorted) {
+      this._sortChildren()
+    }
+
     this._children.map(child => {
       child.render()
     })
