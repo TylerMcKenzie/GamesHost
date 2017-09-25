@@ -1,12 +1,9 @@
 import Vector from "./Vector"
 
 class Shape {
-  constructor({x = 0, y = 0, width = 0, height = 0, rotation = 0, color = "black"}) {
+  constructor({x = 0, y = 0, rotation = 0}) {
     this.position = new Vector(x, y)
-    this.width = width
-    this.height = height
     this.rotation = rotation
-    this.color = color
   }
 
   get x() {
@@ -23,6 +20,15 @@ class Shape {
 
   set y(value) {
     this.position.y = value
+  }
+
+  rotate(angle) {
+    let rad = angle*Math.PI/180
+    let cos = Math.cos(rad)
+    let sin = Math.sin(rad)
+
+    this.x = (this.x*cos - y*sin)
+    this.y = (this.y*sin - y*cos)
   }
 }
 
