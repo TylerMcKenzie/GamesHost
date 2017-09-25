@@ -73,6 +73,7 @@ class Game {
       last = now
 
       if(dt > 1E3) {
+        this.pause()
         return
       }
 
