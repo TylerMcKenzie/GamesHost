@@ -38,10 +38,6 @@ let startStateProps = {
     if(this.spriteTest2.y < 0) {
       this.spriteTest2.velY *= -1
     }
-
-    if(!this.spriteTest2.isAlive()) {
-      this.stage.sendToBack(this.spriteTest2)
-    }
   }
 }
 

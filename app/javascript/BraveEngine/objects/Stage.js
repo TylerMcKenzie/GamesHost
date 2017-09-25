@@ -14,7 +14,7 @@ class Stage {
 
   bringToFront(child) {
     let childToMove = this._children[this.getChildIndex(child)]
-    childToMove.z = this._children.length+1
+    childToMove.z = this._children.length
 
     this._sorted = false
   }
@@ -39,7 +39,7 @@ class Stage {
 
   add(child) {
     if(!child.z) {
-      child.z = this._children.length+1
+      child.z = this._children.length
     } else {
       this._sorted = false
     }
@@ -50,7 +50,9 @@ class Stage {
   remove(child) {
     let index = this.getChildIndex(child)
 
-    this._children.splice(index, 1)
+    if(index >= 0) {
+      this._children.splice(index, 1)
+    }
   }
 
   update(dt) {
