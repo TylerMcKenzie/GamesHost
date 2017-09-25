@@ -3,7 +3,7 @@ import Vector from "./Vector"
 
 class Polygon extends Shape {
   static vectorPoints(vectorArray) {
-    return vectorArray.map(point => new Vector(point.x, point.y))
+    return vectorArray.map((point) => new Vector(point.x, point.y))
   }
 
   constructor({x, y, rotation, points = []}) {
@@ -56,6 +56,8 @@ class Polygon extends Shape {
 
       return point
     })
+
+    this.rotation += angle
   }
 }
 

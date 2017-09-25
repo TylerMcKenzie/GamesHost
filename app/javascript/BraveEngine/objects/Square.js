@@ -4,25 +4,28 @@ class Square extends Polygon {
   static makeSquareCoordinates(size) {
     let points = []
 
-    let i = 0
-    while(i < 4) {
-      let point = {}
-
-      console.log(i)
-      console.log(size % i | 0)
-
-      points.push(point)
-      i++
-    }
+    points.push({x: 0, y: 0})
+    points.push({x: size, y: 0})
+    points.push({x: size, y: size})
+    points.push({x: 0, y: size})
 
     return points
   }
-  constructor({x, y, size, rotation}) {
-    let points = Square.makeSquareCoordinates(size)
-    super({x, y, points, rotation})
 
+  constructor({x, y, rotation, size = 0}) {
+    super({x, y, points: Square.makeSquareCoordinates(size), rotation})
+
+    this._size = size
   }
 
+  get size() {
+    return this._size
+  }
+
+  set size(value) {
+    let newPoints = Square.makeSquareCoordinates(value)
+    console.log(this.constructor)
+  }
 }
 
 window.square = new Square({x: 0, y: 0, size: 10})
