@@ -18,7 +18,15 @@ class Text {
   }
 
   get width() {
-    return this.context.measureText(this.text).width
+    const { fontSize, fontFamily } = this.font
+    let width
+
+    this.context.save()
+    this.context.font = `${fontSize}px ${fontFamily}`
+    width = this.context.measureText(this.text).width
+    this.context.restore()
+
+    return width
   }
 
   set x(value) {
@@ -48,6 +56,8 @@ class Text {
       this.context.strokeStyle = color
       this.context.strokeText(this.text, this.x, this.y)
     }
+
+    this._width = this.context.measureText(this.text).width
 
     this.context.restore()
   }

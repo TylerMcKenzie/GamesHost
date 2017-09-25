@@ -38,7 +38,7 @@ class Stage {
   }
 
   add(child) {
-    if(!child.z) {
+    if(child.z === undefined) {
       child.z = this._children.length
     } else {
       this._sorted = false

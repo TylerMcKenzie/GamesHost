@@ -6,7 +6,8 @@ let startStateProps = {
 
     this.spriteTest2 = this.add("sprite", {color: "blue", width: 50, height: 50, x: this.game.canvas.width/2, y: this.game.canvas.height/2, velX: 100, velY: 200, ttl: 50})
 
-    this.text1 = this.add("text", { text: "Hello Text1.", x: this.game.canvas.width/2, y: this.game.canvas.height/2, font: { fontSize: 50, color: "green", textAlign: "center" }})
+    this.text1 = this.add("text", { text: "Hello Text1.", x: this.game.canvas.width/2, y: this.game.canvas.height/2, font: { fontSize: 50, color: "green", textAlign: "center", textBaseline: "middle" }})
+
   },
   update: function(dt) {
     if(this.spriteTest1.x+this.spriteTest1.width > this.game.canvas.width) {
@@ -40,6 +41,7 @@ let startStateProps = {
     if(this.spriteTest2.y < 0) {
       this.spriteTest2.velY *= -1
     }
+
   }
 }
 
