@@ -36,6 +36,8 @@ class State {
 
 
     this.stage.add(object)
+
+    return object
   }
 
   update(dt) {
