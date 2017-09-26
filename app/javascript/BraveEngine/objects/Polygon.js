@@ -2,14 +2,14 @@ import Shape from "./Shape"
 import Vector from "./Vector"
 
 class Polygon extends Shape {
-  static vectorPoints(vectorArray) {
+  static generateVectorPoints(vectorArray) {
     return vectorArray.map((point) => new Vector(point.x, point.y))
   }
 
   constructor({x, y, rotation, points = []}) {
     super({x, y, rotation})
 
-    this._points = Polygon.vectorPoints(points)
+    this._points = Polygon.generateVectorPoints(points)
   }
 
   hasPoint({x, y}) {

@@ -1,7 +1,7 @@
 import Polygon from "./Polygon"
 
 class Square extends Polygon {
-  static makeSquareCoordinates(size) {
+  static generateSquareCoordinates(size) {
     let points = []
 
     points.push({x: 0, y: 0})
@@ -13,7 +13,7 @@ class Square extends Polygon {
   }
 
   constructor({x, y, rotation, size = 0}) {
-    super({x, y, points: Square.makeSquareCoordinates(size), rotation})
+    super({x, y, points: Square.generateSquareCoordinates(size), rotation})
 
     this._size = size
   }
@@ -23,11 +23,13 @@ class Square extends Polygon {
   }
 
   set size(value) {
-    let newPoints = Square.makeSquareCoordinates(value)
-    console.log(this.constructor)
+    this._size = value
+
+    let newSquatePoints = Square.generateSquareCoordinates(value)
+    let newVectorPoints = Square.generateVectorPoints(newSquarePoints)
+
+    this._points = newVectorPoints
   }
 }
-
-window.square = new Square({x: 0, y: 0, size: 10})
 
 export default Square
