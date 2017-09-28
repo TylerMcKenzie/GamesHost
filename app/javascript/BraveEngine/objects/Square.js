@@ -25,7 +25,7 @@ class Square extends Polygon {
   set size(value) {
     this._size = value
 
-    let newSquatePoints = Square.generateSquareCoordinates(value)
+    let newSquarePoints = Square.generateSquareCoordinates(value)
     let newVectorPoints = Square.generateVectorPoints(newSquarePoints)
 
     this._points = newVectorPoints

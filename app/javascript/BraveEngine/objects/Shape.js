@@ -23,12 +23,13 @@ class Shape {
   }
 
   rotate(angle) {
+    this.rotation += angle
     let rad = angle*Math.PI/180
     let cos = Math.cos(rad)
     let sin = Math.sin(rad)
 
-    this.x = (this.x*cos - y*sin)
-    this.y = (this.y*sin - y*cos)
+    this.x = (this.x*cos - this.y*sin)
+    this.y = (this.y*sin - this.x*cos)
   }
 }
 

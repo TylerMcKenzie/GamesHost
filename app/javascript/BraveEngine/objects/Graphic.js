@@ -1,10 +1,12 @@
 class Graphic {
-  constructor({x = 0, y = 0, color = "black", shape = "rect", context = null, draw = this._draw, update = this._update}) {
-    this._shape = shape
-
+  constructor({x = 0, y = 0, color = "black", context = null, shape = {type: "square", size: 0}, draw = this._draw, update = this._update, render = this._render}) {
     this.color = color
+
+    this.shape = shape
+
     this.draw = draw
     this.update = update
+    this.render = render
 
     this.context = context
   }
@@ -19,8 +21,8 @@ class Graphic {
     this.context.restore()
   }
 
-  render() {
-    this.draw
+  _render() {
+    this.draw()
   }
 }
 
