@@ -12,6 +12,10 @@ class Polygon extends Shape {
     this._points = Polygon.generateVectorPoints(points)
   }
 
+  get points() {
+    return this._points
+  }
+
   hasPoint({x, y}) {
     let hasPoint = false
 

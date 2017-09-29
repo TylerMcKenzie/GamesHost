@@ -12,8 +12,8 @@ class Rectangle extends Polygon {
     return points
   }
 
-  contructor({x, y, width = 0, height = 0, rotation}) {
-    super({x, y, points: Rectangle.generateRectanglePoints(width, height) rotation})
+  constructor({x, y, width = 0, height = 0, rotation}) {
+    super({x, y, points: Rectangle.generateRectanglePoints(width, height), rotation})
     this._width = width
     this._height = height
   }
@@ -37,9 +37,6 @@ class Rectangle extends Polygon {
 
   set height(value) {
     this._height = value
-
-    set width(value) {
-    this._width = value
 
     let newRectanglePoints = Rectangle.generateRectanglePoints(this._width, value)
     let newVectorPoints = Rectangle.generateVectorPoints(newRectanglePoints)

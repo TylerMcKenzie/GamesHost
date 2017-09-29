@@ -1,28 +1,52 @@
+import ShapeManager from "./ShapeManager"
+
 class Graphic {
-  constructor({x = 0, y = 0, color = "black", context = null, shape = {type: "square", size: 0}, draw = this._draw, update = this._update, render = this._render}) {
+  constructor({x = 0, y = 0, color = "black", shape, context = null, update = (dt) => {}}) {
+    this.x = x
+    this.y = y
+
     this.color = color
 
-    this.shape = shape
+    shape.x = this.x
+    shape.y = this.y
 
-    this.draw = draw
-    this.update = update
-    this.render = render
+    this.shape = ShapeManager.shape(shape)
+    this._shapeType = shape.type
+
+    this.update = (dt) => {
+      update(dt)
+
+      this._update(dt)
+    }
 
     this.context = context
   }
 
   _update() {
-
+    this.shape.x = this.x
+    this.shape.y = this.y
   }
 
   _draw() {
     this.context.save()
+    this.context.beginPath()
+    this.context.fillStyle = this.color
 
+    if(this._shapeType === "circle") {
+      this.context.arc(this.x, this.y, this.shape.radius, 0, Math.PI*2, false)
+    } else {
+      this.shape.points.map((point) => {
+        this.context.lineTo(this.shape.x+point.x, this.shape.y+point.y)
+      })
+    }
+
+    this.context.closePath()
+    this.context.fill()
     this.context.restore()
   }
 
-  _render() {
-    this.draw()
+  render() {
+    this._draw()
   }
 }
 
