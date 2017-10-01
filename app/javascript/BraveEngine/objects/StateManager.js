@@ -28,9 +28,9 @@ export default class StateManager {
           throw new Error(`State requires an update function`)
         }
 
-        if(!object.render) {
-          throw new Error(`State requires a render function`)
-        }
+        // if(!object.render) {
+          // throw new Error(`State requires a render function`)
+        // }
 
         object.game = this._gameBinding
 
@@ -39,7 +39,7 @@ export default class StateManager {
         this.states[key] = state
       }
 
-      if(autoStart) {
+      if(autoStart !== undefined && autoStart) {
         this._current = this.states[key]
       }
 

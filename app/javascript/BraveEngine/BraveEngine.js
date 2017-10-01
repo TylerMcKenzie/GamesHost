@@ -17,9 +17,9 @@ import State from "./objects/State.js"
 /*
 * Game Centered Objects
 */
+import Sprite  from "./objects/Sprite.js"
 import Text    from "./objects/Text.js"
 import Graphic from "./objects/Graphic.js"
-import Sprite  from "./objects/Sprite.js"
 
 const BraveEngine = {
   Game,

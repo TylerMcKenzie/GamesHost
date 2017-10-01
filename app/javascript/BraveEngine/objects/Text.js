@@ -5,6 +5,7 @@ class Text {
     this.position = new Vector(x, y)
     this.text = text
     this.context = context
+
     let defaultFont = Object.assign({}, { fontFamily: "sans-serif", fontSize: 10, textAlign: "start", direction: "inherit", textBaseline: "alphabetic", fill: "fill", color: "black" }, font)
     this.font = defaultFont
   }
