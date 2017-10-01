@@ -2,28 +2,42 @@ import ShapeManager from "./ShapeManager"
 
 class CollisionManager {
   static polygonWithPolygon(polygon1, polygon2) {
-    let collided = false
-
     for(let point of polygon2.points) {
       if(polygon1.hasPoint(point)) {
-        collided = true
-        break;
+        return true
       }
     }
 
     for(let point of polygon1.points) {
       if(polygon2.hasPoint(point)) {
-        collided = true
-        break;
+        return true
       }
     }
 
-    return collided
+    return false
   }
 
-  static polygonWithCircle(polygon, circle) {}
+  static polygonWithCircle(polygon, circle) {
+    for(let point of polygon.points) {
+      if(circle.hasPoint(point)) {
+        return true
+      }
+    }
 
-  static circleWithPolygon(circle, polygon) {}
+    return false
+  }
+
+  static circleWithPolygon(circle, polygon) {
+
+
+    for(let point of polygon.points) {
+      if(circle.hasPoint(point)) {
+        return true
+      }
+    }
+
+    return false
+  }
 }
 
 export default CollisionManager

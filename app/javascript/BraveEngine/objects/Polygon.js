@@ -13,7 +13,13 @@ class Polygon extends Shape {
   }
 
   get points() {
-    return this._points
+    return this._points.map((point) => {
+      let {x, y} = point
+      x += this.x
+      y += this.y
+
+      return {x, y}
+    })
   }
 
   hasPoint({x, y}) {
