@@ -4,6 +4,24 @@ import Rectangle from "./Rectangle"
 import Square from "./Square"
 
 class ShapeManager {
+  static shapeType(shape) {
+    if(shape instanceof Polygon) {
+      return "Polygon"
+    }
+
+    if(shape instanceof Circle) {
+      return "Circle"
+    }
+
+    if(shape instanceof Square) {
+      return "Square"
+    }
+
+    if(shape instanceof Rectangle) {
+      return "Rectangle"
+    }
+  }
+
   static shape({type, x, y, rotation, width, height, size, points, radius}) {
     let shape
 

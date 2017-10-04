@@ -1,7 +1,8 @@
 import Vector from "./Vector"
+import Hitbox from "./Hitbox"
 
 class Sprite {
-  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update = this._update, advance = this._advance, render = this._render, draw = this._draw, context = null, image = null, origin = "top-left"}) {
+  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update = this._update, advance = this._advance, render = this._render, draw = this._draw, context = null, image = null, origin = "top-left", hitbox}) {
     this.position = new Vector(x, y)
     this.z = z
 
@@ -15,10 +16,27 @@ class Sprite {
     this.width = width
     this.height = height
 
+    if(hitbox) {
+      this.hitbox = new Hitbox(hitbox)
+      this.hitbox.x = this.x
+      this.hitbox.y = this.y
+
+    } else {
+      this.hitbox = new Hitbox({type: "rectangle", x: this.x, y: this.y, rotation: 0, width: this.width, height: this.height})
+    }
+
     this.color = color
 
-    this.update = update
     this.advance = advance
+
+    this.update = function(dt) {
+      this._update(dt)
+
+      this.hitbox.x = this.x
+      this.hitbox.y = this.y
+      // console.log(`X: ${this.x}, Y: ${this.y}, HITBOX: X: ${this.hitbox.x}, Y: ${this.hitbox.y}`)
+    }
+
     this.render = render
 
     this._image = image
@@ -31,6 +49,7 @@ class Sprite {
     }
 
     this._originLocation = origin
+
   }
 
   get x() {
@@ -144,8 +163,8 @@ class Sprite {
     return this.ttl > 0
   }
 
-  _collidesWith(object) {
-    // HITBOX
+  collidesWith(object) {
+    return this.hitbox.testCollision(object.hitbox)
   }
 }
 
