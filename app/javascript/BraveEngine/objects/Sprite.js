@@ -17,10 +17,10 @@ class Sprite {
     this.height = height
 
     if(hitbox) {
-      hitbox.x = this.x
-      hitbox.y = this.y
-
       this.hitbox = new Hitbox(hitbox)
+      this.hitbox.x = this.x
+      this.hitbox.y = this.y
+
     } else {
       this.hitbox = new Hitbox({type: "rectangle", x: this.x, y: this.y, rotation: 0, width: this.width, height: this.height})
     }

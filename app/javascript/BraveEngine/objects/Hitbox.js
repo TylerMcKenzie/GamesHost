@@ -30,8 +30,6 @@ class Hitbox {
     let thisShapeType = ShapeManager.shapeType(this.shape)
     let hitboxShapeType = ShapeManager.shapeType(hitbox.shape)
 
-    // console.log(`Shapes-> this: ${thisShapeType}, hb: ${hitboxShapeType}`)
-
     if(thisShapeType !== "Circle" && hitboxShapeType !== "Circle") {
       return CollisionManager.polygonWithPolygon(this.shape, hitbox.shape)
     } else if(thisShapeType === "Circle" && hitboxShapeType === "Circle") {
@@ -39,8 +37,7 @@ class Hitbox {
     }
 
     if(thisShapeType !== "Circle" && hitboxShapeType === "Circle") {
-      // console.log("Here!")
-      return CollisionManager.polygonWithCircle(this.shape, hitbox.shape)
+      return CollisionManager.circleWithPolygon(hitbox.shape, this.shape)
     } else if(thisShapeType === "Circle" && hitboxShapeType !== "Circle") {
       return CollisionManager.circleWithPolygon(this.shape, hitbox.shape)
     }
