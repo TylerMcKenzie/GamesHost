@@ -2,6 +2,7 @@ import Stage from "./Stage"
 import Text from "./Text"
 import Sprite from "./Sprite"
 import Graphic from "./Graphic"
+import Camera from "./Camera"
 
 class State {
   static isState(object) {
@@ -15,6 +16,8 @@ class State {
     this.game = game
 
     this.stage = new Stage()
+
+    this.camera = new Camera()
 
     for(let prop in customProps) {
       this[prop] = customProps[prop]
