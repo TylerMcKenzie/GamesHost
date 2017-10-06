@@ -2,6 +2,7 @@ import Stage from "./Stage"
 import Text from "./Text"
 import Sprite from "./Sprite"
 import Graphic from "./Graphic"
+import Group from "./Group"
 
 class State {
   static isState(object) {

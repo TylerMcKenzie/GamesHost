@@ -24,10 +24,10 @@ let startStateProps = {
       }
     })
 
-    this.red.hitbox.shape.rotate(5)
+    this.red.hitbox.shape.rotate(45)
 
     this.blue = this.add("sprite", {
-      x: (this.game.canvas.width/2),
+      x: (this.game.canvas.width/2)+30,
       y: (this.game.canvas.height/2)-100,
       hitbox: {
         type: "circle",
@@ -102,14 +102,12 @@ let startStateProps = {
       this.blue2.velX *= -1
     }
 
-    // console.log(this.red.collidesWith(this.blue))
-    // if(this.blue.collidesWith(this.blue2)) {
-    //   this.blue.velX = 0
-    //   this.blue2.velX = 0
-    // }
+    if(this.blue.collidesWith(this.blue2)) {
+      this.blue2.velX *= -1
+    }
 
     if(this.blue.collidesWith(this.red)) {
-      this.blue.velY = 0
+      this.blue.velY *= -1 
       this.red.velX = 0
     }
 
@@ -121,11 +119,7 @@ let startStateProps = {
 
 let startState = new BraveEngine.State(startStateProps)
 
-
-
 window.gameDemo = new BraveEngine.Game(600, 400, "braveengine-demo", "2d", "Demo", startState)
-
-// console.log(gameDemo)
 
 gameDemo.start()
 

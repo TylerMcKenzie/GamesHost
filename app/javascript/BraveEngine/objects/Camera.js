@@ -1,3 +1,5 @@
-export default class Camera {
+class Camera {
   constructor() {}
 }
+
+export default Camera
