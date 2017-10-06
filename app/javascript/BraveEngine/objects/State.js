@@ -17,7 +17,6 @@ class State {
 
     this.stage = new Stage()
 
-    this.camera = new Camera()
 
     for(let prop in customProps) {
       this[prop] = customProps[prop]
@@ -25,6 +24,7 @@ class State {
 
     if(this.game) {
       this._init()
+      this.camera = new Camera({x: 0, y: 0, width: this.game.canvas.width, height: this.game.canvas.height})
     }
   }
 
