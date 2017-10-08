@@ -123,7 +123,7 @@ let startState = new BraveEngine.State(startStateProps)
 
 
 
-window.gameDemo = new BraveEngine.Game(600, 400, "braveengine-demo", "2d", "Demo", startState)
+window.gameDemo = new BraveEngine.Game(window.innerWidth, 400, "braveengine-demo", "2d", "Demo", startState)
 
 // console.log(gameDemo)
 

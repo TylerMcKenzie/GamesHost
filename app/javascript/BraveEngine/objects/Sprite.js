@@ -34,7 +34,6 @@ class Sprite {
 
       this.hitbox.x = this.x
       this.hitbox.y = this.y
-      // console.log(`X: ${this.x}, Y: ${this.y}, HITBOX: X: ${this.hitbox.x}, Y: ${this.hitbox.y}`)
     }
 
     this.render = render

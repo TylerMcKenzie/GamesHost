@@ -124,6 +124,4 @@ class Camera {
   }
 }
 
-console.log(Camera.AXIS)
-
 export default Camera
