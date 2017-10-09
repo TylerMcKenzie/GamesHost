@@ -10,13 +10,12 @@ let startStateProps = {
       velX: 0,
       color: "red",
       // hitbox: {type: "polygon", points: [{x: 0, y: 0}, {x: 20, y: -20}, {x: 40, y: -30}, {x: 40, y: 40}, {x: 20, y: 40}]},
-      draw: function() {
+      draw: function(x, y) {
         this.context.save()
         this.context.fillStyle = this.color
         this.context.beginPath()
-        this.context.moveTo(this.x, this.y)
         for(let point of this.hitbox.shape.points) {
-          this.context.lineTo(point.x, point.y)
+          this.context.lineTo((x - this.hitbox.shape.x) + point.x, (y - this.hitbox.shape.y) + point.y)
         }
         this.context.closePath()
         this.context.fill()
@@ -35,11 +34,11 @@ let startStateProps = {
       },
       velY: -50,
       color: "blue",
-      draw: function() {
+      draw: function(x, y) {
         this.context.save()
         this.context.beginPath()
         this.context.fillStyle = this.color
-        this.context.arc(this.x, this.y, 20, 0, Math.PI*2, false)
+        this.context.arc(x, y, 20, 0, Math.PI*2, false)
         this.context.closePath()
         this.context.fill()
         this.context.restore()
@@ -48,23 +47,26 @@ let startStateProps = {
 
     this.blue2 = this.add("sprite", {
       x: (this.game.canvas.width/2)-150,
-      y: (this.game.canvas.height/2)-14,
+      y: (this.game.canvas.height/2)-100,
       hitbox: {
         type: "circle",
         radius: 15
       },
       velX: -50,
       color: "lightblue",
-      draw: function() {
+      draw: function(x, y) {
         this.context.save()
         this.context.beginPath()
         this.context.fillStyle = this.color
-        this.context.arc(this.x, this.y, 15, 0, Math.PI*2, false)
+        this.context.arc(x, y, 15, 0, Math.PI*2, false)
         this.context.closePath()
         this.context.fill()
         this.context.restore()
       }
     })
+
+    this.camera.follow(this.blue2, (this.game.canvas.width/2) - 20, this.game.canvas.height/2)
+    console.log(this.camera)
   },
   update: function(dt) {
     let leftBound = 0

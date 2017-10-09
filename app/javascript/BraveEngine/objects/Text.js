@@ -1,21 +1,14 @@
+import Renderable from "./Renderable"
 import Vector from "./Vector"
 
-class Text {
+class Text extends Renderable {
   constructor({text = "", x = 0, y = 0, context = null, font}) {
-    this.position = new Vector(x, y)
+    super({x, y})
     this.text = text
     this.context = context
 
     let defaultFont = Object.assign({}, { fontFamily: "sans-serif", fontSize: 10, textAlign: "start", direction: "inherit", textBaseline: "alphabetic", fill: "fill", color: "black" }, font)
     this.font = defaultFont
-  }
-
-  get x() {
-    return this.position.x
-  }
-
-  get y() {
-    return this.position.y
   }
 
   get width() {
@@ -30,19 +23,11 @@ class Text {
     return width
   }
 
-  set x(value) {
-    this.position.x = value
-  }
-
-  set y(value) {
-    this.position.y = value
-  }
-
   update() {
 
   }
 
-  draw() {
+  _draw(x, y) {
     let { fontSize, fontFamily, textAlign, textBaseline, direction, fill, color } = this.font
     this.context.save()
     this.context.font = `${fontSize}px ${fontFamily}`
@@ -52,19 +37,15 @@ class Text {
 
     if(fill === "fill") {
       this.context.fillStyle = color
-      this.context.fillText(this.text, this.x, this.y)
+      this.context.fillText(this.text, x, y)
     } else if(fill === "stroke") {
       this.context.strokeStyle = color
-      this.context.strokeText(this.text, this.x, this.y)
+      this.context.strokeText(this.text, x, y)
     }
 
     this._width = this.context.measureText(this.text).width
 
     this.context.restore()
-  }
-
-  render() {
-    this.draw()
   }
 }
 

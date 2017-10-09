@@ -23,14 +23,15 @@ class State {
     }
 
     if(this.game) {
+      this.camera = new Camera({xView: this.game.canvas.width/2, yView: this.game.canvas.height/2, width: this.game.canvas.width, height: this.game.canvas.height})
       this._init()
-      this.camera = new Camera({x: 0, y: 0, width: this.game.canvas.width, height: this.game.canvas.height})
     }
   }
 
   bindGameContext(game) {
     this.game = game
 
+    this.camera = new Camera({xView: this.game.canvas.width/2, yView: this.game.canvas.height/2, width: this.game.canvas.width, height: this.game.canvas.height})
     this._init()
   }
 
@@ -63,13 +64,14 @@ class State {
   }
 
   update(dt) {
+    this.camera.update()
     this.stage.update(dt)
 
     this._updateCallback(dt)
   }
 
   render() {
-    this.stage.render()
+    this.stage.render(this.camera.xView, this.camera.yView)
   }
 }
 

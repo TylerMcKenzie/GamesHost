@@ -8,6 +8,7 @@ class Rectangle extends Polygon {
     points.push({ x: width, y: 0 })
     points.push({ x: width, y: height })
     points.push({ x: 0, y: height })
+    points.push({ x: 0, y: 0 })
 
     return points
   }

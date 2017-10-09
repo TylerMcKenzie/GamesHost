@@ -10,46 +10,46 @@ class Camera {
     }
   }
 
-  constructor({xView = 0, yView = 0, canvasWidth, canvasHeight, worldWidth, worldHeight}) {
+  constructor({xView = 0, yView = 0, width, height, worldWidth, worldHeight}) {
     this.xView = xView
     this.yView = yView
 
-    this.viewportWidth = canvasWidth
-    this.viewportHeight = canvasHeight
+    this.viewportWidth = width
+    this.viewportHeight = height
 
     this.deadZoneX = 0
     this.deadZoneY = 0
 
-    this.axis = Camera.AXIS.BOTH
+    this._axis = Camera.AXIS.BOTH
 
     this.followed = null
 
-    this.viewport = new Rectangle(this.xView, this.yView, this.viewportWidth, this.viewportHeight)
+    this.viewport = new Rectangle({x: this.xView, y: this.yView, width: this.viewportWidth, height: this.viewportHeight})
 
     if(worldWidth && worldHeight) {
       this.worldWidth = worldWidth
       this.worldHeight = worldHeight
-      this.worldBounds = new Rectangle(0, 0, this.worldWidth, this.worldHeight)
+      this.worldBounds = new Rectangle({x: 0, y: 0, width: this.worldWidth, height: this.worldHeight})
     }
   }
 
   get axis() {
-    return this.axis
+    return this._axis
   }
 
   set axis(value) {
     switch(value) {
-      case "horizontal":
-        this.axis = Camera.AXIS.HORIZONTAL
+      case Camera.AXIS.HORIZONTAL:
+        this._axis = Camera.AXIS.HORIZONTAL
         break
-      case "vertical":
-        this.axis = Camera.AXIS.VERTICAL
+      case Camera.AXIS.VERTICAL:
+        this._axis = Camera.AXIS.VERTICAL
         break
-      case "both":
-        this.axis = Camera.AXIS.BOTH
+      case Camera.AXIS.BOTH:
+        this._axis = Camera.AXIS.BOTH
         break
-      case "none":
-        this.axis = Camera.AXIS.NONE
+      case Camera.AXIS.NONE:
+        this._axis = Camera.AXIS.NONE
         break
       default:
         throw new Error("Invalid setting of axis. Accepted values are: 'horizontal', 'vertical', 'both', and 'none'.")
@@ -59,6 +59,7 @@ class Camera {
 
   follow(object, deadZoneX = 0, deadZoneY = 0) {
     this.followed = object
+
 
     this.deadZoneX = deadZoneX
     this.deadZoneY = deadZoneY
@@ -73,7 +74,7 @@ class Camera {
   update() {
     if(this.followed != null) {
       // HORIZONTAL movement if not both
-      if( this.axis === Camera.AXIS.HORIZONTAL || this.axis === Camera.AXIS.BOTH) {
+      if(this.axis === Camera.AXIS.HORIZONTAL || this.axis === Camera.AXIS.BOTH) {
         if(this.followed.x - this.xView + this.deadZoneX > this.viewportWidth) {
           this.xView = this.followed.x - (this.viewportWidth - this.deadZoneX);
         } else if(this.followed.x - this.deadZoneX < this.xView) {
@@ -82,7 +83,7 @@ class Camera {
       }
 
       // VERTICAL movement if not both
-      if(this.axis == Camera.AXIS.VERTICAL || this.axis == Camera.AXIS.BOTH) {
+      if(this.axis === Camera.AXIS.VERTICAL || this.axis === Camera.AXIS.BOTH) {
         if(this.followed.y - this.yView + this.deadZoneY > this.viewportHeight) {
           this.yView = this.followed.y - (this.viewportHeight - this.deadZoneY);
         } else if(this.followed.y - this.deadZoneY < this.yView) {
@@ -94,7 +95,7 @@ class Camera {
       this.viewport.y = this.yView
 
       // don't let camera leaves the world's boundary - used for planets stages
-      if(this.worldBounds) {
+      if(this.worldBounds !== undefined) {
         if(!this.withinWorldBounds()) {
           if(this.viewport.x < this.worldBounds.x) {
             this.xView = this.worldBounds.x

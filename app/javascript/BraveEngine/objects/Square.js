@@ -8,6 +8,7 @@ class Square extends Polygon {
     points.push({x: size, y: 0})
     points.push({x: size, y: size})
     points.push({x: 0, y: size})
+    points.push({x: 0, y: 0})
 
     return points
   }
