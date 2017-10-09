@@ -17,8 +17,8 @@ class Camera {
     this.viewportWidth = width
     this.viewportHeight = height
 
-    this.deadZoneX = 0
-    this.deadZoneY = 0
+    this.deadZoneX = width/2
+    this.deadZoneY = height/2
 
     this._axis = Camera.AXIS.BOTH
 
@@ -60,9 +60,8 @@ class Camera {
   follow(object, deadZoneX = 0, deadZoneY = 0) {
     this.followed = object
 
-
-    this.deadZoneX = deadZoneX
-    this.deadZoneY = deadZoneY
+    this.deadZoneX = (this.viewportWidth/2) - deadZoneX
+    this.deadZoneY = (this.viewportHeight/2) - deadZoneY
 
     this.update()
   }

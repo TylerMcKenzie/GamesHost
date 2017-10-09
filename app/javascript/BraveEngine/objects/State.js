@@ -23,7 +23,7 @@ class State {
     }
 
     if(this.game) {
-      this.camera = new Camera({xView: this.game.canvas.width/2, yView: this.game.canvas.height/2, width: this.game.canvas.width, height: this.game.canvas.height})
+      this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
       this._init()
     }
   }
@@ -31,7 +31,7 @@ class State {
   bindGameContext(game) {
     this.game = game
 
-    this.camera = new Camera({xView: this.game.canvas.width/2, yView: this.game.canvas.height/2, width: this.game.canvas.width, height: this.game.canvas.height})
+    this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
     this._init()
   }
 

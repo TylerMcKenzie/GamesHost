@@ -65,8 +65,7 @@ let startStateProps = {
       }
     })
 
-    this.camera.follow(this.blue2, (this.game.canvas.width/2) - 20, this.game.canvas.height/2)
-    console.log(this.camera)
+    this.camera.follow(this.blue)
   },
   update: function(dt) {
     let leftBound = 0
