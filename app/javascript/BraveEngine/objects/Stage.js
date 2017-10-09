@@ -61,13 +61,13 @@ class Stage {
     })
   }
 
-  render() {
+  render(cameraX, cameraY) {
     if(!this._sorted) {
       this._sortChildren()
     }
 
     this._children.map(child => {
-      child.render()
+      child.render(child.x, child.y, cameraX, cameraY)
     })
   }
 }

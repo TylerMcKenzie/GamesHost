@@ -29,10 +29,6 @@ class CollisionManager {
 
         let theta = (Math.atan2(dy, dx) * 180 / Math.PI)
 
-        // if(circle.y > polygon.y) {
-        //   theta += 90
-        // }
-
         let cx = circle.x + circle.radius*Math.cos(theta*Math.PI/180)
         let cy = circle.y + circle.radius*Math.sin(theta*Math.PI/180)
 

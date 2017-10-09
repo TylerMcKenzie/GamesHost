@@ -20,7 +20,7 @@ class Vector {
     this._y = value
   }
 
-  add({x, y}, dt = 1) {
+  add({x = 0, y = 0}, dt = 1) {
     this._x += x*dt
     this._y += y*dt
   }

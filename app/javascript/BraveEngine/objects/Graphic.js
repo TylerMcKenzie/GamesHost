@@ -1,10 +1,10 @@
+import Renderable from "./Renderable"
 import ShapeManager from "./ShapeManager"
+import Vector from "./Vector"
 
-class Graphic {
+class Graphic extends Renderable{
   constructor({x = 0, y = 0, color = "black", shape, context = null, update = (dt) => {}}) {
-    this.x = x
-    this.y = y
-
+    super({x, y})
     this.color = color
 
     shape.x = this.x
@@ -27,26 +27,22 @@ class Graphic {
     this.shape.y = this.y
   }
 
-  _draw() {
+  _draw(x, y) {
     this.context.save()
     this.context.beginPath()
     this.context.fillStyle = this.color
 
     if(this._shapeType === "circle") {
-      this.context.arc(this.x, this.y, this.shape.radius, 0, Math.PI*2, false)
+      this.context.arc(x, y, this.shape.radius, 0, Math.PI*2, false)
     } else {
       this.shape.points.map((point) => {
-        this.context.lineTo(this.shape.x+point.x, this.shape.y+point.y)
+        this.context.lineTo(point.x, point.y)
       })
     }
 
     this.context.closePath()
     this.context.fill()
     this.context.restore()
-  }
-
-  render() {
-    this._draw()
   }
 }
 

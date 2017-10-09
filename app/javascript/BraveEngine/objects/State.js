@@ -2,6 +2,7 @@ import Stage from "./Stage"
 import Text from "./Text"
 import Sprite from "./Sprite"
 import Graphic from "./Graphic"
+import Camera from "./Camera"
 
 class State {
   static isState(object) {
@@ -16,11 +17,13 @@ class State {
 
     this.stage = new Stage()
 
+
     for(let prop in customProps) {
       this[prop] = customProps[prop]
     }
 
     if(this.game) {
+      this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
       this._init()
     }
   }
@@ -28,6 +31,7 @@ class State {
   bindGameContext(game) {
     this.game = game
 
+    this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
     this._init()
   }
 
@@ -60,13 +64,14 @@ class State {
   }
 
   update(dt) {
+    this.camera.update()
     this.stage.update(dt)
 
     this._updateCallback(dt)
   }
 
   render() {
-    this.stage.render()
+    this.stage.render(this.camera.xView, this.camera.yView)
   }
 }
 

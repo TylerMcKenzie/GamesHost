@@ -1,9 +1,11 @@
+import Renderable from "./Renderable"
 import Vector from "./Vector"
 import Hitbox from "./Hitbox"
 
-class Sprite {
-  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update = this._update, advance = this._advance, render = this._render, draw = this._draw, context = null, image = null, origin = "top-left", hitbox}) {
-    this.position = new Vector(x, y)
+class Sprite extends Renderable {
+  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update, advance, render, draw, context = null, image = null, origin = "top-left", hitbox}) {
+    super({x, y})
+
     this.z = z
 
     this.velocity = new Vector(velX, velY)
@@ -27,37 +29,27 @@ class Sprite {
 
     this.color = color
 
-    this.advance = advance
+    this.advance = advance || this._advance
 
     this.update = function(dt) {
       this._update(dt)
 
       this.hitbox.x = this.x
       this.hitbox.y = this.y
-      // console.log(`X: ${this.x}, Y: ${this.y}, HITBOX: X: ${this.hitbox.x}, Y: ${this.hitbox.y}`)
     }
 
-    this.render = render
+    this.render = render || this._render
 
     this._image = image
 
 
     if(this._image) {
-      this.draw = this._drawImg
+      this._draw = this._drawImg
     } else {
-      this.draw = draw
+      this._draw = draw || this._draw
     }
 
     this._originLocation = origin
-
-  }
-
-  get x() {
-    return this.position.x
-  }
-
-  get y() {
-    return this.position.y
   }
 
   get velX() {
@@ -112,14 +104,6 @@ class Sprite {
     }
   }
 
-  set x(value) {
-    this.position.x = value
-  }
-
-  set y(value) {
-    this.position.y = value
-  }
-
   set velX(value) {
     this.velocity.x = value
   }
@@ -141,20 +125,17 @@ class Sprite {
     this.advance(dt)
   }
 
-  _render() {
-    this.draw()
-  }
-
-  _draw() {
+  _draw(x, y) {
     this.context.save()
     this.context.fillStyle = this.color
-    this.context.fillRect(this.x, this.y, this.width, this.height)
+    this.context.fillRect(x, y, this.width, this.height)
     this.context.restore()
   }
 
   _advance(dt) {
     this.velocity.add(this.acceleration, dt)
     this.position.add(this.velocity, dt)
+
 
     this.ttl--
   }
