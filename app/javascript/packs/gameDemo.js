@@ -113,10 +113,6 @@ let startStateProps = {
       this.blue.velY = 0
       this.red.velX = 0
     }
-
-    this.red.update(dt)
-    this.blue.update(dt)
-    this.blue2.update(dt)
   }
 }
 

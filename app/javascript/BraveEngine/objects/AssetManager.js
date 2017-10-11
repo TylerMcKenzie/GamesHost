@@ -1,4 +1,3 @@
-
 class AssetManager {
   static get IMAGEREGEX() {
     return /(jpeg|jpg|gif|png)$/
