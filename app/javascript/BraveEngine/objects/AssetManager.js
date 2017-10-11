@@ -13,8 +13,13 @@ class AssetManager {
   }
 
   static get audioTypes () {
-    return {
+    const audio = new Audio()
 
+    return {
+      wav: '',
+      mp3: audio.canPlayType('audio/mpeg;').replace(AssetManager.NOREGEX, ''),
+      mp3: audio.canPlayType('audio/ogg; codecs="vorbis"').replace(AssetManager.NOREGEX, ''),
+      mp3: audio.canPlayType('audio/acc;').replace(AssetManager.NOREGEX, '')
     }
   }
 
@@ -71,27 +76,47 @@ class AssetManager {
       }
 
       image.onerror = () => {
-        reject(`Unable to load image '${url}'`)
+        reject(`Unable to load image '${joinedUrl}'`)
       }
 
       image.src = joinedUrl
     })
   }
 
-  loadAudio(key, url) {
-    let name = (key !== '' && key !== undefined) ? key : AssetManager.getName(url)
-    let audio = new Audio()
-
-    let joinedUrl = AssetManager.joinPath(this.audioPath, url)
+  loadAudio(key, urls) {
+    if(!Array.isArray(url)) {
+      urls = [urls]
+    }
 
     return new Promise((resolve, reject) => {
-      audio.onload = () => {
-        this.audio[name] = audio
-        resolve(audio)
+      let playableSource
+
+      for(let url of urls) {
+        if(AssetManager.canUseAudio[AssetManager.getExtension(url)]) {
+          playableSource = url
+          break
+        }
       }
 
-      audio.onerror = () => {
-        reject(`Audio type ${AssetManager.getExtension(url)} is not supported by this browser.`)
+      if(!playableSource) {
+        reject('Cannot play any of the audio formats provided.')
+      }
+      else {
+        let name = (key !== '' && key !== undefined) ? key : AssetManager.getName(url)
+        let audio = new Audio()
+        let joinedUrl = AssetManager.joinPath(this.audioPath, playableSource)
+
+        audio.addEventListener('canplay', () => {
+          this.audio[name] = audio
+          resolve(audio)
+        })
+
+        audio.onerror = () => {
+          reject(`Unable to load audio ${joinedUrl}`)
+        }
+
+        audio.src = joinedUrl
+        audio.load()
       }
     })
   }
@@ -127,8 +152,20 @@ class AssetManager {
 
   }
 
-  load() {
+  load(key, url) {
+    let promise, extension = AssetManager.getExtension(url)
 
+    if(extension.match(AssetManager.IMAGEREGEX)) {
+      promise = this.loadImage(key, url)
+    }
+    else if(extension.match(AssetManager.AUDIOREGEX)) {
+      promise = this.loadAudio(key, url)
+    }
+    else {
+      promise = this.loadData(key, url)
+    }
+
+    return promise
   }
 }
 
