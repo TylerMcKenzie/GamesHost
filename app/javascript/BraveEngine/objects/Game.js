@@ -40,7 +40,6 @@ class Game {
 
     this.name = gameName
 
-
     this.state = new StateManager(this)
 
     this.assets = new AssetManager({})
@@ -49,7 +48,6 @@ class Game {
     * Private Variables for class @Game
     */
     this._isPaused = false
-
 
     if(startState) {
       this.state.add('Default', startState, true)

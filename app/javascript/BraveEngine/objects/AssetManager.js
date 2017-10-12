@@ -15,17 +15,20 @@ class AssetManager {
     const audio = new Audio()
 
     return {
-      wav: '',
+      wav: audio.canPlayType('audio/wav;').replace(AssetManager.NOREGEX, ''),
       mp3: audio.canPlayType('audio/mpeg;').replace(AssetManager.NOREGEX, ''),
-      mp3: audio.canPlayType('audio/ogg; codecs="vorbis"').replace(AssetManager.NOREGEX, ''),
-      mp3: audio.canPlayType('audio/acc;').replace(AssetManager.NOREGEX, '')
+      ogg: audio.canPlayType('audio/ogg; codecs="vorbis"').replace(AssetManager.NOREGEX, ''),
+      aac: audio.canPlayType('audio/aac;').replace(AssetManager.NOREGEX, '')
     }
   }
 
   static canUseAudio(source) {
     let extension = AssetManager.getExtension(source)
 
-
+    if(AssetManager.audioTypes[extension]) {
+      return true
+    }
+    return false
   }
 
   static joinPath(...urls) {
@@ -83,7 +86,7 @@ class AssetManager {
   }
 
   loadAudio(key, urls) {
-    if(!Array.isArray(url)) {
+    if(!Array.isArray(urls)) {
       urls = [urls]
     }
 
@@ -91,7 +94,7 @@ class AssetManager {
       let playableSource
 
       for(let url of urls) {
-        if(AssetManager.canUseAudio[AssetManager.getExtension(url)]) {
+        if(AssetManager.canUseAudio(url)) {
           playableSource = url
           break
         }
