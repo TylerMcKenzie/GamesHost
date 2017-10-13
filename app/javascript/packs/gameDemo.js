@@ -2,6 +2,10 @@ import 'BraveEngine'
 
 let startStateProps = {
   init: function() {
+    this.game.assets.load('break', 'sounds/brick_destroy.wav')
+
+    let breakSound = this.game.assets.audio.break
+
     this.red = this.add("sprite", {
       x: (this.game.canvas.width/2),
       y: (this.game.canvas.height/2),
@@ -26,13 +30,13 @@ let startStateProps = {
     this.red.hitbox.shape.rotate(5)
 
     this.blue = this.add("sprite", {
-      x: (this.game.canvas.width/2),
+      x: (this.game.canvas.width/2)+30,
       y: (this.game.canvas.height/2)-100,
       hitbox: {
         type: "circle",
         radius: 20
       },
-      velY: -50,
+      velY: -100,
       color: "blue",
       draw: function(x, y) {
         this.context.save()
@@ -52,7 +56,7 @@ let startStateProps = {
         type: "circle",
         radius: 15
       },
-      velX: -50,
+      velX: -150,
       color: "lightblue",
       draw: function(x, y) {
         this.context.save()
@@ -113,10 +117,6 @@ let startStateProps = {
       this.blue.velY = 0
       this.red.velX = 0
     }
-
-    this.red.update(dt)
-    this.blue.update(dt)
-    this.blue2.update(dt)
   }
 }
 

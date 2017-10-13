@@ -12,7 +12,7 @@
 *
 */
 import StateManager from "./StateManager"
-import Camera from "./Camera"
+import AssetManager from "./AssetManager"
 
 class Game {
   constructor(width, height, parentElement, renderingContext, gameName = "", startState) {
@@ -40,14 +40,14 @@ class Game {
 
     this.name = gameName
 
-
     this.state = new StateManager(this)
+
+    this.assets = new AssetManager({})
 
     /*
     * Private Variables for class @Game
     */
     this._isPaused = false
-
 
     if(startState) {
       this.state.add('Default', startState, true)

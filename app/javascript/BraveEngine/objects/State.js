@@ -17,13 +17,13 @@ class State {
 
     this.stage = new Stage()
 
-
     for(let prop in customProps) {
       this[prop] = customProps[prop]
     }
 
     if(this.game) {
       this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
+
       this._init()
     }
   }
@@ -32,6 +32,7 @@ class State {
     this.game = game
 
     this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
+
     this._init()
   }
 
@@ -53,7 +54,7 @@ class State {
         builder = Text
         break
       default:
-        throw new Error("Game asset not supported.")
+        throw new Error("Game object not supported.")
     }
 
     asset = new builder(object)
