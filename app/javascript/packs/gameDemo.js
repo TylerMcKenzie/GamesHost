@@ -2,12 +2,9 @@ import 'BraveEngine'
 
 let startStateProps = {
   boot: function() {
-    for(let i = 0; i < 5000; i++) {
-      console.log("loading in "+i)
-      // setTimeout(() => {
-        this.game.assets.load('break'+i, 'sounds/brick_destroy.wav')
-      // })
-    }
+    this.game.assets.load('break', 'sounds/brick_destroy.wav')
+    this.game.assets.load('break2', 'sounds/brick_destroy.wav')
+    this.game.assets.load('break3', 'sounds/brick_destroy.wav')
   },
   init: function() {
 
