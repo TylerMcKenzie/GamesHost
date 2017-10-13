@@ -30,7 +30,7 @@ let startStateProps = {
     this.red.hitbox.shape.rotate(5)
 
     this.blue = this.add("sprite", {
-      x: (this.game.canvas.width/2),
+      x: (this.game.canvas.width/2)+30,
       y: (this.game.canvas.height/2)-100,
       hitbox: {
         type: "circle",
