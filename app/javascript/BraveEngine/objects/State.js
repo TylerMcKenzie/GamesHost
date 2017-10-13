@@ -9,8 +9,12 @@ class State {
     return (object instanceof this) ? true : false
   }
 
-  constructor({init, update, game, ...customProps}) {
+  constructor({boot = () => {}, init, update, game, ...customProps}) {
+    this.boot = boot
+    this.isBooted = false
+
     this._init = init
+
     this._updateCallback = update
 
     this.game = game
@@ -24,7 +28,14 @@ class State {
     if(this.game) {
       this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
 
-      this._init()
+      let timeElapsed = performance.now()
+
+      this._boot().then(() => {
+        console.log("booted")
+        console.log(performance.now() - timeElapsed + 'ms')
+        this.isBooted = true
+        this._init()
+      })
     }
   }
 
@@ -32,8 +43,13 @@ class State {
     this.game = game
 
     this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
-
-    this._init()
+    let timeElapsed = performance.now()
+    this._boot().then(() => {
+      console.log("booted")
+      console.log(performance.now() - timeElapsed + 'ms')
+      this.isBooted = true
+      this._init()
+    })
   }
 
   add(type, object) {
@@ -62,6 +78,12 @@ class State {
     this.stage.add(asset)
 
     return asset
+  }
+
+  _boot() {
+    this.boot()
+
+    return this.game.assets.startLoad()
   }
 
   update(dt) {

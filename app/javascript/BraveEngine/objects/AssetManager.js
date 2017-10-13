@@ -61,6 +61,8 @@ class AssetManager {
     this.imagePath = imagePath
     this.audioPath = audioPath
     this.dataPath = dataPath
+
+    this.loadPromises = []
   }
 
 
@@ -167,7 +169,14 @@ class AssetManager {
       promise = this.loadData(key, url)
     }
 
-    return promise
+    this.loadPromises.push(promise)
+  }
+
+  startLoad() {
+    let promises = this.loadPromises
+    // this.loadPromises = []
+
+    return Promise.all(promises)
   }
 }
 
