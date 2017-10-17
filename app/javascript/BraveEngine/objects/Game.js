@@ -15,7 +15,7 @@ import StateManager from "./StateManager"
 import AssetManager from "./AssetManager"
 
 class Game {
-  constructor(width, height, parentElement, renderingContext, gameName = "", assetsConfig = {}, startState) {
+  constructor(width, height, parentElement, renderingContext, gameName = "", startState, assetsConfig = {}) {
     let canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
@@ -24,17 +24,17 @@ class Game {
 
     if(!parentElement.nodeType && typeof parentElement !== "string") {
       throw new Error("A valid id or parentNode is required")
-    } 
+    }
     else {
       if(parentElement.nodeType) {
         parentElement.appendChild(this.canvas)
-      } 
+      }
       else if(typeof parentElement === "string") {
         let parentNode = document.getElementById(parentElement)
 
         if(parentNode) {
           parentNode.appendChild(this.canvas)
-        } 
+        }
         else {
           throw new Error("Parent Element not found.")
         }
@@ -98,7 +98,7 @@ class Game {
 
       if(!this.isPaused) {
         rAF = window.requestAnimationFrame(frame)
-      } 
+      }
       else {
         window.cancelAnimationFrame(rAF)
       }

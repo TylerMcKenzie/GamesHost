@@ -23,7 +23,8 @@ class Sprite extends Renderable {
       this.hitbox.x = this.x
       this.hitbox.y = this.y
 
-    } else {
+    }
+    else {
       this.hitbox = new Hitbox({type: "rectangle", x: this.x, y: this.y, rotation: 0, width: this.width, height: this.height})
     }
 
@@ -40,12 +41,13 @@ class Sprite extends Renderable {
 
     this.render = render || this._render
 
-    this._image = image
 
 
-    if(this._image) {
+    if(image) {
+      this._image = image
       this._draw = this._drawImg
-    } else {
+    }
+    else {
       this._draw = draw || this._draw
     }
 
@@ -129,6 +131,12 @@ class Sprite extends Renderable {
     this.context.save()
     this.context.fillStyle = this.color
     this.context.fillRect(x, y, this.width, this.height)
+    this.context.restore()
+  }
+
+  _drawImg(x, y) {
+    this.context.save()
+    this.context.drawImage(this._image, x, y, this.width, this.height)
     this.context.restore()
   }
 
