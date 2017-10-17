@@ -28,11 +28,7 @@ class State {
     if(this.game) {
       this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
 
-      let timeElapsed = performance.now()
-
       this._boot().then(() => {
-        console.log("booted")
-        console.log(performance.now() - timeElapsed + 'ms')
         this.isBooted = true
         this._init()
       })
@@ -43,10 +39,8 @@ class State {
     this.game = game
 
     this.camera = new Camera({xView: 0, yView: 0, width: this.game.canvas.width, height: this.game.canvas.height})
-    let timeElapsed = performance.now()
+
     this._boot().then(() => {
-      console.log("booted")
-      console.log(performance.now() - timeElapsed + 'ms')
       this.isBooted = true
       this._init()
     })

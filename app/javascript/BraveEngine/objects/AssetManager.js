@@ -174,7 +174,7 @@ class AssetManager {
 
   startLoad() {
     let promises = this.loadPromises
-    // this.loadPromises = []
+    this.loadPromises = []
 
     return Promise.all(promises)
   }

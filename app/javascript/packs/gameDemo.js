@@ -3,12 +3,11 @@ import 'BraveEngine'
 let startStateProps = {
   boot: function() {
     this.game.assets.load('break', 'sounds/brick_destroy.wav')
-    this.game.assets.load('break2', 'sounds/brick_destroy.wav')
-    this.game.assets.load('break3', 'sounds/brick_destroy.wav')
+    this.game.assets.load('screenshot', 'images/screenshot.png')
   },
   init: function() {
 
-    console.log(this.game.assets.audio)
+    console.log(this.game.assets)
 
     this.red = this.add("sprite", {
       x: (this.game.canvas.width/2),
