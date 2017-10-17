@@ -1,10 +1,13 @@
 import 'BraveEngine'
 
 let startStateProps = {
-  init: function() {
+  boot: function() {
     this.game.assets.load('break', 'sounds/brick_destroy.wav')
+    this.game.assets.load('screenshot', 'images/screenshot.png')
+  },
+  init: function() {
 
-    let breakSound = this.game.assets.audio.break
+    console.log(this.game.assets)
 
     this.red = this.add("sprite", {
       x: (this.game.canvas.width/2),
@@ -124,7 +127,7 @@ let startState = new BraveEngine.State(startStateProps)
 
 
 
-window.gameDemo = new BraveEngine.Game(window.innerWidth, 400, "braveengine-demo", "2d", "Demo", startState)
+window.gameDemo = new BraveEngine.Game(400, 400, "braveengine-demo", "2d", "Demo", {}, startStateProps)
 
 // console.log(gameDemo)
 

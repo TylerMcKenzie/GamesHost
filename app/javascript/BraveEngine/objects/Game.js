@@ -15,7 +15,7 @@ import StateManager from "./StateManager"
 import AssetManager from "./AssetManager"
 
 class Game {
-  constructor(width, height, parentElement, renderingContext, gameName = "", startState) {
+  constructor(width, height, parentElement, renderingContext, gameName = "", assetsConfig = {}, startState) {
     let canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
@@ -24,15 +24,18 @@ class Game {
 
     if(!parentElement.nodeType && typeof parentElement !== "string") {
       throw new Error("A valid id or parentNode is required")
-    } else {
+    } 
+    else {
       if(parentElement.nodeType) {
         parentElement.appendChild(this.canvas)
-      } else if(typeof parentElement === "string") {
+      } 
+      else if(typeof parentElement === "string") {
         let parentNode = document.getElementById(parentElement)
 
         if(parentNode) {
           parentNode.appendChild(this.canvas)
-        } else {
+        } 
+        else {
           throw new Error("Parent Element not found.")
         }
       }
@@ -42,7 +45,7 @@ class Game {
 
     this.state = new StateManager(this)
 
-    this.assets = new AssetManager({})
+    this.assets = new AssetManager(assetsConfig)
 
     /*
     * Private Variables for class @Game
@@ -80,18 +83,23 @@ class Game {
       accumulator += dt
 
       while(accumulator >= delta) {
-        this.state.current.update(step)
+        if(this.state.current.isBooted) {
+          this.state.current.update(step)
+        }
 
         accumulator -= delta
       }
 
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-      this.state.current.render()
+      if(this.state.current.isBooted) {
+        this.state.current.render()
+      }
 
       if(!this.isPaused) {
         rAF = window.requestAnimationFrame(frame)
-      } else {
+      } 
+      else {
         window.cancelAnimationFrame(rAF)
       }
     }
