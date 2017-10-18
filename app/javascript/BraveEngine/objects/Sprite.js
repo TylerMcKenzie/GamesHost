@@ -136,7 +136,7 @@ class Sprite extends Renderable {
 
   _drawImg(x, y) {
     this.context.save()
-    this.context.drawImage(this._image, x, y, this.width, this.height)
+    this.context.drawImage(this._image, x, y)
     this.context.restore()
   }
 

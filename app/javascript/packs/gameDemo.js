@@ -31,7 +31,7 @@ let startStateProps = {
       }
     })
 
-    this.red.hitbox.shape.rotate(5)
+    console.log(this.red._image)
 
     this.blue = this.add("sprite", {
       x: (this.game.canvas.width/2)+30,
