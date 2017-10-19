@@ -4,7 +4,7 @@ import Renderable from "./Renderable"
 import SpriteSheet from "./SpriteSheet"
 
 class Sprite extends Renderable {
-  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update, advance, render, draw, context = null, image = null, animations, origin = "top-left", hitbox}) {
+  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update, advance, render, draw, context = null, image = null, spritesheet, origin = "top-left", hitbox}) {
     super({x, y})
 
     this.z = z
@@ -49,12 +49,11 @@ class Sprite extends Renderable {
       this._image = image
       this._draw = this._drawImg
     }
-    else if(animations) {
-      this.animations = {}
+    else if(spritesheet) {
+      this.spritesheet = new SpriteSheet(spritesheet)
 
-      for(let name of animations) {
-        this.animations[name] = animations[name]
-      }
+      this._draw = this._drawAnimation
+      this.advance = this._advanceAnimation
     }
 
     this._originLocation = origin
@@ -146,12 +145,23 @@ class Sprite extends Renderable {
     this.context.restore()
   }
 
+  _drawAnimation(x, y) {
+    this.context.save()
+    this.spritesheet.currentAnimation._draw(this.context, x, y)
+    this.context.restore()
+  }
+
   _advance(dt) {
     this.velocity.add(this.acceleration, dt)
     this.position.add(this.velocity, dt)
 
 
     this.ttl--
+  }
+
+  _advanceAnimation(dt) {
+    this._advance(dt)
+    this.spritesheet.currentAnimation.update(dt)
   }
 
   isAlive() {

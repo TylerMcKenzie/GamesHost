@@ -8,7 +8,24 @@ let startStateProps = {
   },
   init: function() {
 
-    this.ball = this.add("sprite", { x: this.game.canvas.width/2, y: this.game.canvas.height/2, width: 50, height: 50, color: "red" })
+    this.ball = this.add("sprite", {
+      x: 0,
+      y: 100,
+      spritesheet: {
+        image: this.game.assets.images.ball,
+        frameWidth: 800,
+        frameHeight: 800,
+        animations: {
+          bounce: {
+            frames: [0, 1, 2, 3, 4, 5],
+            frameRate: 5
+          }
+        }
+      },
+      width: 50,
+      height: 50,
+      color: "red"
+    })
     console.log(this.ball)
     // this.red = this.add("sprite", {
     //   image: this.game.assets.images.screenshot,
@@ -130,7 +147,7 @@ let assetsConfig = {
   imagePath: 'images'
 }
 
-window.gameDemo = new BraveEngine.Game(400, 400, "braveengine-demo", "2d", "Demo", startStateProps, assetsConfig)
+window.gameDemo = new BraveEngine.Game(window.innerWidth, window.innerHeight, "braveengine-demo", "2d", "Demo", startStateProps, assetsConfig)
 
 // console.log(gameDemo)
 

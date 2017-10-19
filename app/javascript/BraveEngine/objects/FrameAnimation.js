@@ -1,5 +1,8 @@
-class FrameAnimation {
+import Renderable from "./Renderable"
+
+class FrameAnimation extends Renderable {
   constructor({spritesheet, frames, frameRate}) {
+    super({})
     this.spritesheet = spritesheet
 
     this.frames = frames
@@ -11,7 +14,7 @@ class FrameAnimation {
     this.height = frame.height
     this.margin = frame.margin || 0
 
-    this._current_frame = 0
+    this._currentFrame = 0
     this._accumulator = 0
   }
 
@@ -21,14 +24,24 @@ class FrameAnimation {
     this._accumulator += dt
 
     while(this._accumulator * this.frameRate >= 1) {
-      this._current_frame = ++this._frame % this.frames.length
+      this._currentFrame = ++this._currentFrame % this.frames.length
 
-      this._accumulator -= 1 / this.frameRate 
+      this._accumulator -= 1 / this.frameRate
     }
   }
 
-  render() {
+  _draw(context, x, y) {
+    let row = this.frames[this._currentFrame] / this.spritesheet.framesPerRow || 0;
+    let col = this.frames[this._currentFrame] % this.spritesheet.framesPerRow || 0;
 
+    context.drawImage(
+      this.spritesheet.image,
+      col * this.width + (col * 2 + 1) * this.margin,
+      row * this.height + (row * 2 + 1) * this.margin,
+      this.width, this.height,
+      x, y,
+      this.width, this.height
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 import FrameAnimation from "./FrameAnimation"
 
 class SpriteSheet {
-  constructor({spritesheet, animations = {}, image, frameWidth, frameHeight, frameMargin}) {
+  constructor({animations = {}, image, frameWidth, frameHeight, frameMargin = 0}) {
     if(!image) {
       throw new Error(`An image must be provided for the SpriteSheet, got ${image}`)
     }
@@ -17,6 +17,22 @@ class SpriteSheet {
     }
 
     this.framesPerRow = this.image.width / this.frame.width || 0
+
+    this.currentAnimation = null
+
+    this.generateAnimations(this.animations)
+  }
+
+  generateAnimations(animations) {
+    for(let name in animations) {
+      let { frames, frameRate } = animations[name]
+
+      this.animations[name] = new FrameAnimation({ spritesheet: this, frames: frames, frameRate: frameRate })
+
+      if(!this.currentAnimation) {
+        this.currentAnimation = this.animations[name]
+      }
+    }
   }
 }
 
