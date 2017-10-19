@@ -31,8 +31,8 @@ class FrameAnimation extends Renderable {
   }
 
   _draw(context, x, y) {
-    let row = this.frames[this._currentFrame] / this.spritesheet.framesPerRow || 0;
-    let col = this.frames[this._currentFrame] % this.spritesheet.framesPerRow || 0;
+    let row = this.frames[this._currentFrame] / this.spritesheet.framesPerRow | 0;
+    let col = this.frames[this._currentFrame] % this.spritesheet.framesPerRow | 0;
 
     context.drawImage(
       this.spritesheet.image,

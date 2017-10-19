@@ -7,18 +7,18 @@ let startStateProps = {
     this.game.assets.load('ball', 'ball_bounce_spritesheet.png')
   },
   init: function() {
-
     this.ball = this.add("sprite", {
       x: 0,
-      y: 100,
+      y: 0,
+      velX: 400,
       spritesheet: {
         image: this.game.assets.images.ball,
-        frameWidth: 800,
-        frameHeight: 800,
+        frameWidth: 400,
+        frameHeight: 400,
         animations: {
           bounce: {
             frames: [0, 1, 2, 3, 4, 5],
-            frameRate: 5
+            frameRate: 10
           }
         }
       },
@@ -95,6 +95,13 @@ let startStateProps = {
     let leftBound = 0
     let rightBound = this.game.canvas.width
 
+    if(this.ball.x < leftBound) {
+      this.ball.velX *= -1
+    }
+    else if (this.ball.x > rightBound ) {
+      this.ball.velX *= -1
+    }
+
     // if(this.red.x+this.red.width > rightBound) {
     //   this.red.velX *= -1
     // }
@@ -147,7 +154,7 @@ let assetsConfig = {
   imagePath: 'images'
 }
 
-window.gameDemo = new BraveEngine.Game(window.innerWidth, window.innerHeight, "braveengine-demo", "2d", "Demo", startStateProps, assetsConfig)
+window.gameDemo = new BraveEngine.Game(800, 600, "braveengine-demo", "2d", "Demo", startStateProps, assetsConfig)
 
 // console.log(gameDemo)
 
