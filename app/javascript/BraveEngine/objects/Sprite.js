@@ -1,9 +1,10 @@
-import Renderable from "./Renderable"
 import Vector from "./Vector"
 import Hitbox from "./Hitbox"
+import Renderable from "./Renderable"
+import SpriteSheet from "./SpriteSheet"
 
 class Sprite extends Renderable {
-  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update, advance, render, draw, context = null, image = null, origin = "top-left", hitbox}) {
+  constructor({width = 0, height = 0, color = "black", x = 0, y = 0, z, velX = 0, velY = 0, accX = 0, accY = 0, ttl = 0, update, advance, render, draw, context = null, image = null, animations, origin = "top-left", hitbox}) {
     super({x, y})
 
     this.z = z
@@ -42,13 +43,18 @@ class Sprite extends Renderable {
     this.render = render || this._render
 
 
+    this._draw = draw || this._draw
 
     if(image) {
       this._image = image
       this._draw = this._drawImg
     }
-    else {
-      this._draw = draw || this._draw
+    else if(animations) {
+      this.animations = {}
+
+      for(let name of animations) {
+        this.animations[name] = animations[name]
+      }
     }
 
     this._originLocation = origin
