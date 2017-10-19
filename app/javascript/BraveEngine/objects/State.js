@@ -88,8 +88,6 @@ class State {
   }
 
   render() {
-    this.game.context.fillStyle = "black"
-    this.game.context.fillRect(0,0, this.game.canvas.width, this.game.canvas.height)
     this.stage.render(this.camera.xView, this.camera.yView)
   }
 }

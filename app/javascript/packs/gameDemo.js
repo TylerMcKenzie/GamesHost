@@ -22,8 +22,8 @@ let startStateProps = {
           }
         }
       },
-      width: 50,
-      height: 50,
+      width: 400,
+      height: 400,
       color: "red"
     })
     console.log(this.ball)
@@ -98,7 +98,7 @@ let startStateProps = {
     if(this.ball.x < leftBound) {
       this.ball.velX *= -1
     }
-    else if (this.ball.x > rightBound ) {
+    else if (this.ball.x+this.ball.width > rightBound ) {
       this.ball.velX *= -1
     }
 
