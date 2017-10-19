@@ -18,7 +18,10 @@ let startStateProps = {
         animations: {
           bounce: {
             frames: [0, 1, 2, 3, 4, 5],
-            frameRate: 10
+            frameRate: 15
+          },
+          idle: {
+            frames: [3]
           }
         }
       },

@@ -18,6 +18,11 @@ class FrameAnimation extends Renderable {
     this._accumulator = 0
   }
 
+  reset() {
+    this._currentFrame = 0
+    this._accumulator = 0
+  }
+
   update(dt = 1/60) {
     dt = dt
 

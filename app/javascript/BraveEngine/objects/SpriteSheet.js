@@ -23,6 +23,12 @@ class SpriteSheet {
     this.generateAnimations(this.animations)
   }
 
+  playAnimation(name) {
+    this.currentAnimation.reset()
+
+    this.currentAnimation = this.animations[name]
+  }
+
   generateAnimations(animations) {
     for(let name in animations) {
       let { frames, frameRate } = animations[name]
