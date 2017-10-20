@@ -10,7 +10,7 @@ let startStateProps = {
     this.ball = this.add("sprite", {
       x: 0,
       y: 0,
-      velX: 400,
+      // velX: 400,
       spritesheet: {
         image: this.game.assets.images.ball,
         frameWidth: 400,
@@ -18,10 +18,10 @@ let startStateProps = {
         animations: {
           bounce: {
             frames: [0, 1, 2, 3, 4, 5],
-            frameRate: 15
+            frameRate: 10
           },
           idle: {
-            frames: [3]
+            frames: [3, 2, 1, 0]
           }
         }
       },

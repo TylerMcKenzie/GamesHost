@@ -1,8 +1,5 @@
-import Renderable from "./Renderable"
-
-class FrameAnimation extends Renderable {
+class FrameAnimation {
   constructor({spritesheet, frames, frameRate}) {
-    super({})
     this.spritesheet = spritesheet
 
     this.frames = frames
